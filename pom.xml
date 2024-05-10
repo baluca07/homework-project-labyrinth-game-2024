@@ -6,11 +6,11 @@
     <artifactId>homework-template-project</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
-    <description><!-- TODO: a brief description of your project --></description>
+    <description>1.7 Assigment: Labyrinth Game</description>
     <developers>
         <developer>
-            <name><!-- TODO: your full name --></name>
-            <email><!-- TODO: your email address --></email>
+            <name>Bagoly Luca Enikő</name>
+            <email>bagolyluca03@gmail.com</email>
             <organization>Faculty of Informatics, University of Debrecen</organization>
             <organizationUrl>https://inf.unideb.hu/</organizationUrl>
         </developer>
@@ -24,7 +24,7 @@
         <jacoco.version>0.8.12</jacoco.version>
         <maven.checkstyle.version>3.3.1</maven.checkstyle.version>
         <maven.surefire.version>3.2.5</maven.surefire.version>
-        <exec.mainClass><!-- TODO: the fully-qualified class name of your class that contains the main() method to launch the application --></exec.mainClass>
+        <exec.mainClass>Main</exec.mainClass>
     </properties>
     <dependencies>
         <dependency>
