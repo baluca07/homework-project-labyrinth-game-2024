@@ -4,6 +4,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import org.tinylog.Logger;
 
 public class LabyrinthController {
 
@@ -36,5 +37,6 @@ public class LabyrinthController {
             labyrinth.addRow(y, nodeRow);
         }
         labyrinth.getStyleClass().add("basicBorder");
+    Logger.info("Initialized grid");
     }
 }
