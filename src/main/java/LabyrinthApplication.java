@@ -10,6 +10,7 @@ public class LabyrinthApplication extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/ui.fxml"));
         primaryStage.setTitle("Labyrinth Game");
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/ui.css").toString());
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
