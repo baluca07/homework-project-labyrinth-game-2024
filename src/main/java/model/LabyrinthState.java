@@ -55,8 +55,8 @@ public class LabyrinthState implements puzzle.State<Direction> {
         int currentCol = player.getCurrentPosition().getCol();
         if (labyrinthCells[currentRow - 1][currentCol - 1].canGoDirection(direction)) {
             Position position = player.getCurrentPosition();
-            position.setRow(currentRow + direction.getRow());
-            position.setCol(currentCol + direction.getCol());
+            position.setRow(currentRow + direction.getRowChange());
+            position.setCol(currentCol + direction.getColChange());
             movePlayer(direction);
         }
     }

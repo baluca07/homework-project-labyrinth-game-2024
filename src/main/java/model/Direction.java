@@ -6,20 +6,20 @@ public enum Direction {
     SOUTH(1, 0),
     WEST(0, -1);
 
-    private final int row;
-    private final int col;
+    private final int rowChange;
+    private final int colChange;
 
-    Direction(int row, int col) {
-        this.row = row;
-        this.col = col;
+    Direction(int rowChange, int colChange) {
+        this.rowChange = rowChange;
+        this.colChange = colChange;
     }
 
-    public int getRow() {
-        return row;
+    public int getRowChange() {
+        return rowChange;
     }
 
-    public int getCol() {
-        return col;
+    public int getColChange() {
+        return colChange;
     }
 
 }
