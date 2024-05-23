@@ -3,6 +3,7 @@ package model;
 public class Target {
     private static Target instance;
     private final Position position;
+
     private Target(Position position) {
         this.position = position;
     }
