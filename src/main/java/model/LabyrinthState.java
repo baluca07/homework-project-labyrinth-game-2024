@@ -1,11 +1,17 @@
 package model;
 
+import com.google.gson.Gson;
 import lombok.Getter;
 import org.tinylog.Logger;
 import puzzle.State;
+import utils.LabyrinthSetUp;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class LabyrinthState implements puzzle.State<Direction> {
     public final static int LABYRINTH_SIZE = 7;
@@ -20,8 +26,20 @@ public class LabyrinthState implements puzzle.State<Direction> {
                 labyrinthCells[i][j] = new LabyrinthCell(Position.of(i + 1, j + 1));
             }
         }
-        setUpPlayer(Position.of(1, 1));
-        setUpTarget(Position.of(2, 2));
+        setUpGame();
+    }
+
+    public void setUpGame() {
+        Gson gson = new Gson();
+        String json = new BufferedReader(new InputStreamReader(Objects.requireNonNull(getClass().
+                getResourceAsStream("/setup.json"))))
+                .lines().collect(Collectors.joining());
+        LabyrinthSetUp setup = gson.fromJson(json, LabyrinthSetUp.class);
+        setUpPlayer(setup.getPlayerStartPosition());
+        setUpTarget(setup.getTargetPosition());
+        for (var positions : setup.getWallsBetweenPositions()) {
+            setWallBetween(positions[0], positions[1]);
+        }
     }
 
     private void setUpPlayer(Position position) { //1 - LABYRINTH_SIZE
