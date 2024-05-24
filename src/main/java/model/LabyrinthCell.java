@@ -1,6 +1,7 @@
 package model;
 
 import lombok.Getter;
+import org.tinylog.Logger;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,6 +32,7 @@ public class LabyrinthCell {
 
     public void removeDirection(Direction direction) {
         directionCanGo.remove(direction);
+        Logger.trace("{} direction removed from position {}",direction,this.getPosition());
     }
 
     public boolean canGoDirection(Direction direction) {
