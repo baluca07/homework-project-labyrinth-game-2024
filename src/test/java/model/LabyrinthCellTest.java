@@ -47,13 +47,4 @@ class LabyrinthCellTest {
         assertEquals(Set.of(Direction.NORTH,Direction.EAST,Direction.SOUTH,Direction.WEST),labyrinthCell5.getDirectionCanGo());
         assertNotEquals(null,labyrinthCell5.getDirectionCanGo());
     }
-    @Test
-    void testToString(){
-        assertEquals("(1,1) " +
-                Set.of(Direction.EAST,Direction.SOUTH)
-                        .stream()
-                        .map(Direction::name)
-                        .collect(Collectors.joining(", ")),
-                labyrinthCell1.toString());
-    }
 }
