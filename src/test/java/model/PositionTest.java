@@ -10,8 +10,8 @@ class PositionTest {
 
     @Test
     void of() {
-        assertEquals(Position.of(0, 0), position);
-        assertNotEquals(Position.of(1, 1), position);
+        assertEquals(new Position(0,0), Position.of(0, 0));
+        assertNotEquals(new Position(0,0), Position.of(1, 1));
     }
 
     @Test
@@ -21,8 +21,8 @@ class PositionTest {
 
     @Test
     void testEquals() {
-        assertEquals(position, Position.of(0, 0));
-        assertNotEquals(position, Position.of(1, 1));
+        assertEquals(Position.of(0, 0),position);
+        assertNotEquals(Position.of(1, 1),position);
     }
 
     @Test
@@ -33,8 +33,8 @@ class PositionTest {
 
     @Test
     void getCol() {
-        assertEquals(0, position.getRow());
-        assertNotEquals(1, position.getRow());
+        assertEquals(0, position.getCol());
+        assertNotEquals(1, position.getCol());
     }
 
     @Test
@@ -48,7 +48,7 @@ class PositionTest {
 
     @Test
     void setCol() {
-        Position newPosition = Position.of(position.getCol(), position.getCol());
+        Position newPosition = Position.of(position.getRow(), position.getCol());
         newPosition.setCol(1);
         assertNotEquals(position.getCol(), newPosition.getCol());
         Position positionExpected = new Position(2, 1);
