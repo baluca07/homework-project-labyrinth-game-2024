@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static model.LabyrinthState.LABYRINTH_SIZE;
 
 class LabyrinthStateTest {
 
@@ -12,7 +13,7 @@ class LabyrinthStateTest {
 
     @Test
     void getLabyrinthCellAtPosition() {
-        assertDoesNotThrow(() -> labyrinthState.getLabyrinthCellAtPosition(Position.of(7, 7)));
+        assertDoesNotThrow(() -> labyrinthState.getLabyrinthCellAtPosition(Position.of(LABYRINTH_SIZE, LABYRINTH_SIZE)));
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> labyrinthState.getLabyrinthCellAtPosition(Position.of(0, 0)));
     }
 
@@ -39,7 +40,7 @@ class LabyrinthStateTest {
         LabyrinthState labyrinthStateMoved = (LabyrinthState) labyrinthStateStart.clone();
         labyrinthStateMoved.makeMove(Direction.SOUTH);
         assertNotEquals(labyrinthStateStart, labyrinthStateMoved);
-        assertEquals(Position.of(7, 1), labyrinthStateMoved.getPlayer().getCurrentPosition());
+        assertEquals(Position.of(LABYRINTH_SIZE, 1), labyrinthStateMoved.getPlayer().getCurrentPosition());
     }
 
     @Test
