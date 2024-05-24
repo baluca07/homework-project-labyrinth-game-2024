@@ -2,19 +2,19 @@ package model;
 
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
 public class LabyrinthCell {
 
     private final Position position;
-    private final List<Direction> directionCanGo;
+    private final Set<Direction> directionCanGo;
 
     public LabyrinthCell(Position position) {
         this.position = position;
-        this.directionCanGo = new ArrayList<Direction>();
+        this.directionCanGo = new HashSet<>();
         if (position.getRow() != 1) {
             directionCanGo.add(Direction.NORTH);
         }
