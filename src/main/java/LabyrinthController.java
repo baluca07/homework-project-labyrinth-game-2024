@@ -6,10 +6,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import org.tinylog.Logger;
 
+import static model.LabyrinthState.LABYRINTH_SIZE;
+
 public class LabyrinthController {
-
-    static final int LABYRINTH_SIZE = 7;
-
     private StackPane[][] nodes;
 
     @FXML
