@@ -8,7 +8,7 @@ import org.tinylog.Logger;
 
 public class LabyrinthController {
 
-    static final int LABYRINTH_SIZE=7;
+    static final int LABYRINTH_SIZE = 7;
 
     private StackPane[][] nodes;
 
@@ -19,7 +19,8 @@ public class LabyrinthController {
     public void initialize() {
         initializeGrid();
     }
-    private void initializeGrid(){
+
+    private void initializeGrid() {
 
         nodes = new StackPane[LABYRINTH_SIZE][LABYRINTH_SIZE];
         for (int y = 0; y < LABYRINTH_SIZE; y++) {
@@ -37,6 +38,6 @@ public class LabyrinthController {
             labyrinth.addRow(y, nodeRow);
         }
         labyrinth.getStyleClass().add("basicBorder");
-    Logger.info("Initialized grid");
+        Logger.info("Initialized grid");
     }
 }

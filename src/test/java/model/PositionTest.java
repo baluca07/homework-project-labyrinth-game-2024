@@ -10,8 +10,8 @@ class PositionTest {
 
     @Test
     void of() {
-        assertEquals(new Position(1,1), Position.of(1, 1));
-        assertNotEquals(new Position(1,1), Position.of(2, 1));
+        assertEquals(new Position(1, 1), Position.of(1, 1));
+        assertNotEquals(new Position(1, 1), Position.of(2, 1));
     }
 
     @Test
@@ -21,8 +21,8 @@ class PositionTest {
 
     @Test
     void testEquals() {
-        assertEquals(Position.of(1, 1),position);
-        assertNotEquals(Position.of(2, 1),position);
+        assertEquals(Position.of(1, 1), position);
+        assertNotEquals(Position.of(2, 1), position);
     }
 
     @Test

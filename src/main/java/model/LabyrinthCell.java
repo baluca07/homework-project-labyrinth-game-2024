@@ -32,7 +32,7 @@ public class LabyrinthCell {
 
     public void removeDirection(Direction direction) {
         directionCanGo.remove(direction);
-        Logger.trace("{} direction removed from position {}",direction,this.getPosition());
+        Logger.trace("{} direction removed from position {}", direction, this.getPosition());
     }
 
     public boolean canGoDirection(Direction direction) {

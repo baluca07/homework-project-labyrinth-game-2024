@@ -38,19 +38,19 @@ class LabyrinthStateTest {
         LabyrinthState labyrinthStateStart = (LabyrinthState) labyrinthState.clone();
         LabyrinthState labyrinthStateMoved = (LabyrinthState) labyrinthStateStart.clone();
         labyrinthStateMoved.makeMove(Direction.SOUTH);
-        assertNotEquals(labyrinthStateStart,labyrinthStateMoved);
-        assertEquals(Position.of(7,1),labyrinthStateMoved.getPlayer().getCurrentPosition());
+        assertNotEquals(labyrinthStateStart, labyrinthStateMoved);
+        assertEquals(Position.of(7, 1), labyrinthStateMoved.getPlayer().getCurrentPosition());
     }
 
     @Test
     void getLegalMoves() {
-        LabyrinthCell labyrinthCell = labyrinthState.getLabyrinthCellAtPosition(Position.of(2,2));
-        assertEquals(Set.of(Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST),labyrinthCell.getDirectionCanGo());
+        LabyrinthCell labyrinthCell = labyrinthState.getLabyrinthCellAtPosition(Position.of(2, 2));
+        assertEquals(Set.of(Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST), labyrinthCell.getDirectionCanGo());
     }
 
     @Test
     void testClone() {
         LabyrinthState labyrinthStateCloned = (LabyrinthState) labyrinthState.clone();
-        assertEquals(labyrinthState.getPlayer().getCurrentPosition(),labyrinthStateCloned.getPlayer().getCurrentPosition());
+        assertEquals(labyrinthState.getPlayer().getCurrentPosition(), labyrinthStateCloned.getPlayer().getCurrentPosition());
     }
 }
