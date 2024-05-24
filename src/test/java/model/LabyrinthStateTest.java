@@ -31,7 +31,8 @@ class LabyrinthStateTest {
     void isLegalMove() {
         LabyrinthState labyrinthState1 = (LabyrinthState) labyrinthState.clone();
         assertTrue(labyrinthState1.isLegalMove(Direction.SOUTH));
-        assertFalse(labyrinthState1.isLegalMove(Direction.NORTH));
+        labyrinthState1.makeMove(Direction.SOUTH);
+        assertFalse(labyrinthState1.isLegalMove(Direction.SOUTH));
     }
 
     @Test
@@ -40,7 +41,7 @@ class LabyrinthStateTest {
         LabyrinthState labyrinthStateMoved = (LabyrinthState) labyrinthStateStart.clone();
         labyrinthStateMoved.makeMove(Direction.SOUTH);
         assertNotEquals(labyrinthStateStart, labyrinthStateMoved);
-        assertEquals(Position.of(LABYRINTH_SIZE, 1), labyrinthStateMoved.getPlayer().getCurrentPosition());
+        assertEquals(Position.of(5, 5), labyrinthStateMoved.getPlayer().getCurrentPosition());
     }
 
     @Test
