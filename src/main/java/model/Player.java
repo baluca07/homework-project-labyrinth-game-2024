@@ -3,6 +3,9 @@ package model;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Represents the player with its position.
+ */
 @RequiredArgsConstructor
 @Getter
 public class Player {

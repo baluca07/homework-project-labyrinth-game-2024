@@ -13,12 +13,21 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a state of the Labyrinth game.
+ */
 public class LabyrinthState implements puzzle.State<Direction> {
+    /**
+     * The size of the labyrinth.
+     */
     public final static int LABYRINTH_SIZE = 7;
     @Getter
     private Player player;
     private final LabyrinthCell[][] labyrinthCells;
 
+    /**
+     * Creates a new maze state and sets it up using the {@link #setUpGame()} method.
+     */
     public LabyrinthState() {
         this.labyrinthCells = new LabyrinthCell[LABYRINTH_SIZE][LABYRINTH_SIZE];
         for (int i = 0; i < LABYRINTH_SIZE; i++) {
@@ -29,6 +38,11 @@ public class LabyrinthState implements puzzle.State<Direction> {
         setUpGame();
     }
 
+    /**
+     * Reads the {@code setup.json} file into an instance of the {@link LabyrinthSetUp} class using {@code gson},
+     * then uses the read data to create an instance of the {@link Player} class and set a position of the {@link Target}
+     * singleton, and set the inner walls of the labyrinth.
+     */
     public void setUpGame() {
         Gson gson = new Gson();
         String json = new BufferedReader(new InputStreamReader(Objects.requireNonNull(getClass().
@@ -62,17 +76,32 @@ public class LabyrinthState implements puzzle.State<Direction> {
         }
     }
 
+    /**
+     * {@return the labyrinth cell in the specified position}
+     *
+     * @param position the position on which we want to return the cell
+     */
     public LabyrinthCell getLabyrinthCellAtPosition(Position position) {
         var row = position.getRow() - 1;
         var col = position.getCol() - 1;
         return labyrinthCells[row][col];
     }
 
+    /**
+     * {@return whether the labyrinth is solved, i.e. whether the player
+     * is at the {@link Target} position}
+     */
     @Override
     public boolean isSolved() {
         return player.getCurrentPosition().equals(Target.getPosition());
     }
 
+    /**
+     * {@return whether it is possible to move the player in the specified direction}
+     *
+     * @param direction direction we want to check
+     *
+     */
     @Override
     public boolean isLegalMove(Direction direction) {
         var row = player.getCurrentPosition().getRow();
@@ -80,6 +109,12 @@ public class LabyrinthState implements puzzle.State<Direction> {
         return getLabyrinthCellAtPosition(Position.of(row, col)).canGoDirection(direction);
     }
 
+    /**
+     * The player takes the step in the given direction. If the game has been resolved,
+     * no move is made by the player.
+     *
+     * @param direction the direction in which you want to move the player
+     */
     @Override
     public void makeMove(Direction direction) {
         if (isSolved()) {
@@ -96,6 +131,9 @@ public class LabyrinthState implements puzzle.State<Direction> {
         }
     }
 
+    /**
+     * {@return a {@code Set} of direction in which direction the player can move}
+     */
     @Override
     public Set<Direction> getLegalMoves() {
         var row = player.getCurrentPosition().getRow();
@@ -103,6 +141,9 @@ public class LabyrinthState implements puzzle.State<Direction> {
         return new HashSet<>(getLabyrinthCellAtPosition(Position.of(row, col)).getDirectionCanGo());
     }
 
+    /**
+     * {@return a copy of the current state}
+     */
     @Override
     public State<Direction> clone() {
         LabyrinthState state = new LabyrinthState();
