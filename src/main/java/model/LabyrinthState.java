@@ -20,6 +20,8 @@ public class LabyrinthState implements puzzle.State<Direction> {
                 labyrinthCells[i][j] = new LabyrinthCell(Position.of(i + 1, j + 1));
             }
         }
+        setUpPlayer(Position.of(1, 1));
+        setUpTarget(Position.of(2, 2));
     }
 
     private void setUpPlayer(Position position) { //1 - LABYRINTH_SIZE
@@ -42,23 +44,10 @@ public class LabyrinthState implements puzzle.State<Direction> {
         }
     }
 
-    public LabyrinthCell getLabyrinthCellAtPosition(int row, int col) {
+    public LabyrinthCell getLabyrinthCellAtPosition(Position position) {
+        var row = position.getRow() - 1;
+        var col = position.getCol() - 1;
         return labyrinthCells[row][col];
-    }
-
-    public void movePlayer(Direction direction) {
-        if (isSolved()) {
-            Logger.info("Solved.");
-            return;
-        }
-        int currentRow = player.getCurrentPosition().getRow();
-        int currentCol = player.getCurrentPosition().getCol();
-        if (labyrinthCells[currentRow - 1][currentCol - 1].canGoDirection(direction)) {
-            Position position = player.getCurrentPosition();
-            position.setRow(currentRow + direction.getRowChange());
-            position.setCol(currentCol + direction.getColChange());
-            movePlayer(direction);
-        }
     }
 
     @Override
@@ -70,19 +59,30 @@ public class LabyrinthState implements puzzle.State<Direction> {
     public boolean isLegalMove(Direction direction) {
         var row = player.getCurrentPosition().getRow();
         var col = player.getCurrentPosition().getCol();
-        return getLabyrinthCellAtPosition(row, col).canGoDirection(direction);
+        return getLabyrinthCellAtPosition(Position.of(row, col)).canGoDirection(direction);
     }
 
     @Override
     public void makeMove(Direction direction) {
-        movePlayer(direction);
+        if (isSolved()) {
+            Logger.info("Solved.");
+            return;
+        }
+        int currentRow = player.getCurrentPosition().getRow();
+        int currentCol = player.getCurrentPosition().getCol();
+        if (labyrinthCells[currentRow - 1][currentCol - 1].canGoDirection(direction)) {
+            Position position = player.getCurrentPosition();
+            position.setRow(currentRow + direction.getRowChange());
+            position.setCol(currentCol + direction.getColChange());
+            makeMove(direction);
+        }
     }
 
     @Override
     public Set<Direction> getLegalMoves() {
         var row = player.getCurrentPosition().getRow();
         var col = player.getCurrentPosition().getCol();
-        return new HashSet<>(getLabyrinthCellAtPosition(row, col).getDirectionCanGo());
+        return new HashSet<>(getLabyrinthCellAtPosition(Position.of(row, col)).getDirectionCanGo());
     }
 
     @Override
