@@ -1,15 +1,16 @@
 package utils.score;
+
 import com.google.gson.Gson;
 import org.tinylog.Logger;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -52,7 +53,7 @@ public class GsonScoreManager implements ScoreManager {
         try {
             String content = gson.toJson(playersScores);
             Path path = Paths.get("scores.json");
-            Logger.info("File's path:{}",path);
+            Logger.info("File's path:{}", path);
             Files.write(path, content.getBytes());
             Logger.info("Scores wrote in file");
         } catch (Exception e) {
@@ -63,12 +64,13 @@ public class GsonScoreManager implements ScoreManager {
 
     /**
      * Adds the player's score to an instance of the {@link ScoreTable} class.
+     *
      * @param row the player score we want to add to the existing {@link ScoreTable}
      */
     @Override
     public void addScore(ScoreRow row) {
         playersScores.getScores().add(row);
-        Logger.info("Score added to ScoresTable: {}: {}",row.getPlayerName(),row.getStepsTaken());
+        Logger.info("Score added to ScoresTable: {}: {}", row.getPlayerName(), row.getStepsTaken());
     }
 
     /**

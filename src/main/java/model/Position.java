@@ -23,7 +23,6 @@ public class Position {
      *            (between 1 and the maximum sizes of the labyrinth)
      * @param col the row value of the position to be created
      *            (between 1 and the maximum sizes of the labyrinth)
-     *
      */
     public static Position of(int row, int col) {
         return new Position(row, col);

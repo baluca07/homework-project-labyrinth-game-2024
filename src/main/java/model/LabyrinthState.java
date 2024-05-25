@@ -86,7 +86,8 @@ public class LabyrinthState implements puzzle.State<Direction> {
         }
         Logger.debug("Wall set up between " + position1 + " and " + position2);
     }
-    private void movePlayer(Direction direction){
+
+    private void movePlayer(Direction direction) {
         int currentRow = player.getCurrentPosition().getRow();
         int currentCol = player.getCurrentPosition().getCol();
         if (labyrinthCells[currentRow - 1][currentCol - 1].canGoDirection(direction)) {
@@ -110,6 +111,7 @@ public class LabyrinthState implements puzzle.State<Direction> {
 
     /**
      * Sets a boolean property value for the Java FX application, which represents whether the player has won.
+     *
      * @param playerWon true if you want to set that the player won, otherwise false
      */
     public void setPlayerWonProperty(boolean playerWon) {

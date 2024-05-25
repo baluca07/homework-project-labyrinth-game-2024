@@ -18,6 +18,7 @@ public interface ScoreManager {
 
     /**
      * An implementable method that allows you to add a {@link ScoreRow} to something.
+     *
      * @param row {@link ScoreRow} we want to add to something
      */
     void addScore(ScoreRow row);

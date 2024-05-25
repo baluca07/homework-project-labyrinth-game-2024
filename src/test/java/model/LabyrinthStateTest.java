@@ -1,13 +1,11 @@
 package model;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static model.LabyrinthState.LABYRINTH_SIZE;
+import static org.junit.jupiter.api.Assertions.*;
 
 class LabyrinthStateTest {
 
@@ -63,13 +61,13 @@ class LabyrinthStateTest {
 
     @Test
     void getPlayerWonProperty() {
-        assertEquals(false,labyrinthState.getPlayerWonProperty().getValue());
+        assertEquals(false, labyrinthState.getPlayerWonProperty().getValue());
 
         LabyrinthState labyrinthState1 = (LabyrinthState) labyrinthState.clone();
         Position targetPosition = Target.getPosition();
         labyrinthState1.getPlayer().getCurrentPosition().setRow(targetPosition.getRow());
         labyrinthState1.getPlayer().getCurrentPosition().setCol(targetPosition.getCol());
 
-        assertEquals(false,labyrinthState.getPlayerWonProperty().getValue());
+        assertEquals(false, labyrinthState.getPlayerWonProperty().getValue());
     }
 }
