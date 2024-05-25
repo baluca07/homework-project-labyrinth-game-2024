@@ -40,7 +40,7 @@ public class LabyrinthController {
 
     @FXML
     public void initialize() {
-        playerName = showStartWindow();
+        setPlayerName();
         scoreManager = new GsonScoreManager();
         scoreManager.readFromFile();
 
@@ -53,8 +53,8 @@ public class LabyrinthController {
 
         showScores();
 
-        state.getPlayerWonProperty().addListener((o)->{
-            if(state.getPlayerWonProperty().getValue()){
+        state.getPlayerWonProperty().addListener((o) -> {
+            if (state.getPlayerWonProperty().getValue()) {
                 setPlayerCircle();
                 showPlayerWon();
                 resetGame(true);
@@ -71,7 +71,6 @@ public class LabyrinthController {
         dialog.getDialogPane().getButtonTypes().remove(ButtonType.CANCEL);
         dialog.getDialogPane().setGraphic(null);
         dialog.showAndWait();
-        Logger.debug("Player's name : " + dialog.getResult());
         return dialog.getResult();
     }
 
@@ -151,7 +150,7 @@ public class LabyrinthController {
     public void showScores() {
         scoreTable.getChildren().clear();
         scoreTable.getRowConstraints().clear();
-        for(var row : scoreManager.getPlayersScores()) {
+        for (var row : scoreManager.getPlayersScores()) {
             Label scoreName = new Label(row.getPlayerName());
             scoreName.setPadding(new Insets(0, 5, 0, 10));
             scoreName.getStyleClass().add("score");
@@ -163,7 +162,7 @@ public class LabyrinthController {
             }
             scoreName.setStyle("-fx-pref-width: 100");
             scoreValue.setStyle("-fx-pref-width: 30");
-            scoreTable.addRow(scoreTable.getRowCount(),scoreName, scoreValue);
+            scoreTable.addRow(scoreTable.getRowCount(), scoreName, scoreValue);
         }
     }
 
@@ -217,21 +216,32 @@ public class LabyrinthController {
         scoreManager.writeToFile();
         playerStepsTaken = 0;
         stepsLabel.setText("Steps: " + playerStepsTaken);
-        playerName = showStartWindow();
+        setPlayerName();
         showScores();
     }
 
     @FXML
-    private void retry(){
+    private void retry() {
         resetGame(false);
     }
 
-    private void showPlayerWon(){
+    private void showPlayerWon() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Labyrinth Game");
         alert.setHeaderText("Congratulations!");
         alert.setContentText("You won!");
         alert.getDialogPane().setGraphic(null);
         alert.showAndWait();
+    }
+
+    public void setPlayerName() {
+        var name = showStartWindow();
+        if (name == null || name.equals("")) {
+            Logger.warn("Missing player name");
+            playerName = "NaN";
+        } else {
+            playerName = name;
+        }
+        Logger.debug("Player name: " + playerName);
     }
 }
