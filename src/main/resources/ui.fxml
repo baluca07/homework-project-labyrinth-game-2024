@@ -17,7 +17,7 @@
           <RowConstraints minHeight="10.0" prefHeight="80.0" vgrow="NEVER" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Retry" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Retry" GridPane.halignment="CENTER" GridPane.rowIndex="2" onAction="#retry"/>
             <Label text="Scores" GridPane.halignment="CENTER" GridPane.rowIndex="0">
                <font>
                   <Font size="24.0" />

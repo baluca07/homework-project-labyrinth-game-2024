@@ -36,7 +36,7 @@ public class LabyrinthController {
 
     @FXML
     public void initialize() {
-        playerName=showStartWindow();
+        playerName = showStartWindow();
 
         initializeGrid();
         setOuterWalls();
@@ -48,12 +48,12 @@ public class LabyrinthController {
         stepsLabel.setText("Steps: " + playerStepsTaken);
     }
 
-    public String showStartWindow(){
+    public String showStartWindow() {
         var dialog = new TextInputDialog();
         dialog.setTitle("Labyrinth Game");
         dialog.setContentText("Your name:");
         dialog.setHeaderText("Welcome! To start the game, type your name here!");
-        ((Button)dialog.getDialogPane().lookupButton(ButtonType.OK)).setText("Play");
+        ((Button) dialog.getDialogPane().lookupButton(ButtonType.OK)).setText("Play");
         dialog.getDialogPane().getButtonTypes().remove(ButtonType.CANCEL);
         dialog.getDialogPane().setGraphic(null);
         dialog.showAndWait();
@@ -101,8 +101,7 @@ public class LabyrinthController {
         Logger.info("Walls set up on GUI");
     }
 
-    @FXML
-    public void setOuterWalls() {
+    private void setOuterWalls() {
         for (int i = 0; i < LABYRINTH_SIZE; i++) {
             nodes[0][i].getStyleClass().add("topBorder");
             nodes[i][0].getStyleClass().add("leftBorder");
@@ -120,14 +119,14 @@ public class LabyrinthController {
         Logger.info("PLayer initialized");
     }
 
-    public void setPlayerCircle() {
+    private void setPlayerCircle() {
         Position currentPosition = state.getPlayer().getCurrentPosition();
         GridPane.setRowIndex(playerCircle, currentPosition.getRow() - 1);
         GridPane.setColumnIndex(playerCircle, currentPosition.getCol() - 1);
         Logger.info("Player position set on GUI");
     }
-    @FXML
-    public void setTargetText() {
+
+    private void setTargetText() {
         targetText = new Text("CÉL");
         targetText.getStyleClass().add("targetText");
         labyrinth.add(targetText, Target.getPosition().getCol() - 1, Target.getPosition().getRow() - 1);
@@ -135,7 +134,7 @@ public class LabyrinthController {
         Logger.info("Target text set on GUI");
     }
 
-    public void movePlayer(Direction direction) {
+    private void movePlayer(Direction direction) {
         if (!state.isSolved()) {
             playerStepsTaken++;
         }
@@ -148,27 +147,40 @@ public class LabyrinthController {
     }
 
     @FXML
-    public void goNorth() {
+    private void goNorth() {
         if (state.isLegalMove(Direction.NORTH))
             movePlayer(Direction.NORTH);
     }
 
     @FXML
-    public void goSouth() {
+    private void goSouth() {
         if (state.isLegalMove(Direction.SOUTH))
             movePlayer(Direction.SOUTH);
     }
 
     @FXML
-    public void goEast() {
+    private void goEast() {
         if (state.isLegalMove(Direction.EAST))
             movePlayer(Direction.EAST);
     }
 
     @FXML
-    public void goWest() {
+    private void goWest() {
         if (state.isLegalMove(Direction.WEST))
             movePlayer(Direction.WEST);
+    }
+
+    private void resetGame() {
+        state.setUpGame();
+        setPlayerCircle();
+        playerName = showStartWindow();
+        playerStepsTaken = 0;
+        stepsLabel.setText("Steps: " + playerStepsTaken);
+    }
+
+    @FXML
+    private void retry(){
+        resetGame();
     }
 
 }
