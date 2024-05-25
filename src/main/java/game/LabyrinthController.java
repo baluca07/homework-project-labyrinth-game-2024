@@ -2,7 +2,10 @@ package game;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -21,6 +24,7 @@ public class LabyrinthController {
     private StackPane[][] nodes;
     private LabyrinthState state = new LabyrinthState();
     private int playerStepsTaken;
+    private String playerName;
     @FXML
     private GridPane labyrinth;
     @FXML
@@ -32,14 +36,29 @@ public class LabyrinthController {
 
     @FXML
     public void initialize() {
+        playerName=showStartWindow();
+
         initializeGrid();
         setOuterWalls();
         setWalls();
         initializePlayer();
-        setPlayerCircle();
         setTargetText();
+        setPlayerCircle();
         playerStepsTaken = 0;
         stepsLabel.setText("Steps: " + playerStepsTaken);
+    }
+
+    public String showStartWindow(){
+        var dialog = new TextInputDialog();
+        dialog.setTitle("Labyrinth Game");
+        dialog.setContentText("Your name:");
+        dialog.setHeaderText("Welcome! To start the game, type your name here!");
+        ((Button)dialog.getDialogPane().lookupButton(ButtonType.OK)).setText("Play");
+        dialog.getDialogPane().getButtonTypes().remove(ButtonType.CANCEL);
+        dialog.getDialogPane().setGraphic(null);
+        dialog.showAndWait();
+        Logger.debug("Player's name : " + dialog.getResult());
+        return dialog.getResult();
     }
 
     private void initializeGrid() {
@@ -107,7 +126,6 @@ public class LabyrinthController {
         GridPane.setColumnIndex(playerCircle, currentPosition.getCol() - 1);
         Logger.info("Player position set on GUI");
     }
-
     @FXML
     public void setTargetText() {
         targetText = new Text("CÉL");
@@ -126,7 +144,7 @@ public class LabyrinthController {
         setPlayerCircle();
         stepsLabel.setText("Steps: " + playerStepsTaken);
         Logger.trace(state.getPlayer().toString());
-        Logger.info("Steps: {}", playerStepsTaken);
+        Logger.info(playerName + "'s steps: {}", playerStepsTaken);
     }
 
     @FXML
@@ -152,6 +170,5 @@ public class LabyrinthController {
         if (state.isLegalMove(Direction.WEST))
             movePlayer(Direction.WEST);
     }
-
 
 }
