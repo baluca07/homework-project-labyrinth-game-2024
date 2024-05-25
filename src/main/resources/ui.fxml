@@ -60,7 +60,7 @@
                   <Button mnemonicParsing="false" onAction="#goSouth" prefHeight="30.0" prefWidth="50.0" text="South" BorderPane.alignment="CENTER" />
                </bottom>
             </BorderPane>
-            <Label fx:id="stepsLabel" alignment="CENTER" layoutX="20.0" layoutY="31.0" prefHeight="20.0" prefWidth="90.0" text="Steps: -">
+            <Label fx:id="stepsLabel" alignment="CENTER" layoutX="20.0" layoutY="31.0" prefHeight="20.0" prefWidth="90.0" text="Steps: ">
                <font>
                   <Font size="18.0" />
                </font></Label>
