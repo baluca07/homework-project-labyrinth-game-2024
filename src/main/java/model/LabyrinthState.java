@@ -100,7 +100,6 @@ public class LabyrinthState implements puzzle.State<Direction> {
      * {@return whether it is possible to move the player in the specified direction}
      *
      * @param direction direction we want to check
-     *
      */
     @Override
     public boolean isLegalMove(Direction direction) {
@@ -152,5 +151,26 @@ public class LabyrinthState implements puzzle.State<Direction> {
         Position clonedPosition = new Position(row, col);
         state.setUpPlayer(clonedPosition);
         return state;
+    }
+
+    @Override
+    public String toString() {
+        return "Labyrinth state: " +
+                player.toString() +
+                ", solved=" + isSolved() +
+                ", legalMoves=" + getLegalMoves();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LabyrinthState that = (LabyrinthState) o;
+        return Objects.equals(player.getCurrentPosition(), that.player.getCurrentPosition());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(player.getCurrentPosition());
     }
 }
