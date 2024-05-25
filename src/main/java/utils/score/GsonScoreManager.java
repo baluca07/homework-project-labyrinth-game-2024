@@ -12,6 +12,10 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Allows you to manage scores with {@code gson} by implementing the {@link ScoreManager} interface.
+ * Scores can be written and read in the {@code scores.json} file.
+ */
 public class GsonScoreManager implements ScoreManager {
     private Gson gson;
     private ScoreTable playersScores;
@@ -20,6 +24,9 @@ public class GsonScoreManager implements ScoreManager {
         playersScores = new ScoreTable();
     }
 
+    /**
+     * Reads the data in {@code scores.json}. If the file does not exist, throws an exception.
+     */
     @Override
     public void readFromFile() {
         String jsonContent = null;
@@ -32,6 +39,10 @@ public class GsonScoreManager implements ScoreManager {
             playersScores = new ScoreTable();
         }
     }
+
+    /**
+     * Writes the stored scores to the {@code scores.json} file. If it cannot do this, it throws an exception.
+     */
     @Override
     public void writeToFile() {
         try {
@@ -45,11 +56,21 @@ public class GsonScoreManager implements ScoreManager {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Adds the player's score to an instance of the {@link ScoreTable} class.
+     * @param row the player score we want to add to the existing {@link ScoreTable}
+     */
     @Override
     public void addScore(ScoreRow row) {
         playersScores.getScores().add(row);
         Logger.info("Score added to ScoresTable: {}: {}",row.getPlayerName(),row.getStepsTaken());
     }
+
+    /**
+     * {@return Returns a sorted list of the scores achieved so far by the number of steps taken.
+     * If a player hasn't solved the labyrinth, they are moved to the bottom of the list.}
+     */
     @Override
     public List<ScoreRow> getPlayersScores() {
         return playersScores.getScores().stream()

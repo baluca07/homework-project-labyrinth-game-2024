@@ -1,4 +1,4 @@
-package utils;
+package utils.setup;
 
 import com.google.gson.Gson;
 import model.Position;
