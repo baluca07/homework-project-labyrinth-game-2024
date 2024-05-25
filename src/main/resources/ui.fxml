@@ -40,19 +40,19 @@
          <children>
             <BorderPane layoutY="99.0" prefHeight="100.0" prefWidth="130.0">
                <top>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" text="North" BorderPane.alignment="CENTER" />
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" text="North" BorderPane.alignment="CENTER" onAction="#goNorth"/>
                </top>
                <left>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" text="West" BorderPane.alignment="CENTER" />
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" text="West" BorderPane.alignment="CENTER" onAction="#goWest"/>
                </left>
                <right>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" text="East" BorderPane.alignment="CENTER" />
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" text="East" BorderPane.alignment="CENTER" onAction="#goEast"/>
                </right>
                <bottom>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" text="South" BorderPane.alignment="CENTER" />
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" text="South" BorderPane.alignment="CENTER" onAction="#goSouth"/>
                </bottom>
             </BorderPane>
-            <Label alignment="CENTER" layoutX="20.0" layoutY="31.0" prefHeight="20.0" prefWidth="90.0" text="Steps: -">
+            <Label fx:id="stepsLabel" alignment="CENTER" layoutX="20.0" layoutY="31.0" prefHeight="20.0" prefWidth="90.0" text="Steps: -">
                <font>
                   <Font size="18.0" />
                </font></Label>
