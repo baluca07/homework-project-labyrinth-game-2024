@@ -17,15 +17,23 @@
           <RowConstraints minHeight="10.0" prefHeight="80.0" vgrow="NEVER" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Retry" GridPane.halignment="CENTER" GridPane.rowIndex="2" onAction="#retry"/>
+            <Button mnemonicParsing="false" onAction="#retry" prefHeight="30.0" prefWidth="100.0" text="Retry" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <Label text="Scores" GridPane.halignment="CENTER" GridPane.rowIndex="0">
                <font>
                   <Font size="24.0" />
                </font></Label>
             <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-              </content>
+               <content>
+                  <GridPane fx:id="scoreTable" prefHeight="32.0" prefWidth="130.0">
+                      <rowConstraints>
+                          <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                      </rowConstraints>
+                      <columnConstraints>
+                          <ColumnConstraints halignment="RIGHT" prefWidth="90" />
+                          <ColumnConstraints halignment="LEFT" prefWidth="40" />
+                      </columnConstraints>
+                  </GridPane>
+               </content>
             </ScrollPane>
          </children>
          <HBox.margin>
@@ -40,16 +48,16 @@
          <children>
             <BorderPane layoutY="99.0" prefHeight="100.0" prefWidth="130.0">
                <top>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" text="North" BorderPane.alignment="CENTER" onAction="#goNorth"/>
+                  <Button mnemonicParsing="false" onAction="#goNorth" prefHeight="30.0" prefWidth="50.0" text="North" BorderPane.alignment="CENTER" />
                </top>
                <left>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" text="West" BorderPane.alignment="CENTER" onAction="#goWest"/>
+                  <Button mnemonicParsing="false" onAction="#goWest" prefHeight="30.0" prefWidth="50.0" text="West" BorderPane.alignment="CENTER" />
                </left>
                <right>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" text="East" BorderPane.alignment="CENTER" onAction="#goEast"/>
+                  <Button mnemonicParsing="false" onAction="#goEast" prefHeight="30.0" prefWidth="50.0" text="East" BorderPane.alignment="CENTER" />
                </right>
                <bottom>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" text="South" BorderPane.alignment="CENTER" onAction="#goSouth"/>
+                  <Button mnemonicParsing="false" onAction="#goSouth" prefHeight="30.0" prefWidth="50.0" text="South" BorderPane.alignment="CENTER" />
                </bottom>
             </BorderPane>
             <Label fx:id="stepsLabel" alignment="CENTER" layoutX="20.0" layoutY="31.0" prefHeight="20.0" prefWidth="90.0" text="Steps: -">

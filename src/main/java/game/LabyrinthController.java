@@ -1,11 +1,9 @@
 package game;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -17,6 +15,9 @@ import model.LabyrinthState;
 import model.Position;
 import model.Target;
 import org.tinylog.Logger;
+import utils.score.GsonScoreManager;
+import utils.score.ScoreManager;
+import utils.score.ScoreRow;
 
 import static model.LabyrinthState.LABYRINTH_SIZE;
 
@@ -24,6 +25,7 @@ public class LabyrinthController {
     private StackPane[][] nodes;
     private LabyrinthState state = new LabyrinthState();
     private int playerStepsTaken;
+    private ScoreManager scoreManager;
     private String playerName;
     @FXML
     private GridPane labyrinth;
@@ -33,19 +35,30 @@ public class LabyrinthController {
     private Text targetText;
     @FXML
     private Label stepsLabel;
+    @FXML
+    public GridPane scoreTable;
 
     @FXML
     public void initialize() {
         playerName = showStartWindow();
+        scoreManager = new GsonScoreManager();
+        scoreManager.readFromFile();
 
         initializeGrid();
         setOuterWalls();
         setWalls();
-        initializePlayer();
         setTargetText();
+        initializePlayer();
         setPlayerCircle();
-        playerStepsTaken = 0;
-        stepsLabel.setText("Steps: " + playerStepsTaken);
+
+        showScores();
+
+        state.getPlayerWonProperty().addListener((o)->{
+            if(state.getPlayerWonProperty().getValue()){
+                setPlayerCircle();
+                resetGame(true);
+            }
+        });
     }
 
     public String showStartWindow() {
@@ -134,16 +147,37 @@ public class LabyrinthController {
         Logger.info("Target text set on GUI");
     }
 
-    private void movePlayer(Direction direction) {
-        if (!state.isSolved()) {
-            playerStepsTaken++;
+    public void showScores() {
+        scoreTable.getChildren().clear();
+        scoreTable.getRowConstraints().clear();
+        for(var row : scoreManager.getPlayersScores()) {
+            Label scoreName = new Label(row.getPlayerName());
+            scoreName.setPadding(new Insets(0, 5, 0, 10));
+            scoreName.getStyleClass().add("score");
+            Label scoreValue = new Label(Integer.toString(row.getStepsTaken()));
+            scoreValue.getStyleClass().add("score");
+            if (row.isSolved()) {
+                scoreName.getStyleClass().add("winScore");
+                scoreValue.getStyleClass().add("winScore");
+            }
+            scoreName.setStyle("-fx-pref-width: 100");
+            scoreValue.setStyle("-fx-pref-width: 30");
+            scoreTable.addRow(scoreTable.getRowCount(),scoreName, scoreValue);
         }
+    }
+
+    private void movePlayer(Direction direction) {
+        playerStepsTaken++;
         state.makeMove(direction);
-        Logger.info("Player moved to " + direction);
+        Logger.info("Player moved to " + direction + " on the GUI");
         setPlayerCircle();
         stepsLabel.setText("Steps: " + playerStepsTaken);
         Logger.trace(state.getPlayer().toString());
         Logger.info(playerName + "'s steps: {}", playerStepsTaken);
+        if (state.isSolved()) {
+            state.setPlayerWonProperty(true);
+            Logger.info("Already solved");
+        }
     }
 
     @FXML
@@ -170,17 +204,25 @@ public class LabyrinthController {
             movePlayer(Direction.WEST);
     }
 
-    private void resetGame() {
+    private void resetGame(boolean isSolved) {
         state.setUpGame();
         setPlayerCircle();
-        playerName = showStartWindow();
+        ScoreRow row = ScoreRow.builder()
+                .playerName(playerName)
+                .stepsTaken(playerStepsTaken)
+                .solved(isSolved)
+                .build();
+        scoreManager.addScore(row);
+        scoreManager.writeToFile();
         playerStepsTaken = 0;
         stepsLabel.setText("Steps: " + playerStepsTaken);
+        playerName = showStartWindow();
+        showScores();
     }
 
     @FXML
     private void retry(){
-        resetGame();
+        resetGame(false);
     }
 
 }

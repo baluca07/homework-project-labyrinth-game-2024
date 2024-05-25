@@ -1,6 +1,8 @@
 package model;
 
 import com.google.gson.Gson;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import lombok.Getter;
 import org.tinylog.Logger;
 import puzzle.State;
@@ -24,6 +26,8 @@ public class LabyrinthState implements puzzle.State<Direction> {
     @Getter
     private Player player;
     private final LabyrinthCell[][] labyrinthCells;
+    @Getter
+    private BooleanProperty playerWonProperty;
 
     /**
      * Creates a new maze state and sets it up using the {@link #setUpGame()} method.
@@ -35,6 +39,7 @@ public class LabyrinthState implements puzzle.State<Direction> {
                 labyrinthCells[i][j] = new LabyrinthCell(Position.of(i + 1, j + 1));
             }
         }
+        playerWonProperty = new SimpleBooleanProperty();
         setUpGame();
     }
 
@@ -55,6 +60,7 @@ public class LabyrinthState implements puzzle.State<Direction> {
         for (var positions : setup.getWallsBetweenPositions()) {
             setWallBetween(positions[0], positions[1]);
         }
+        playerWonProperty.setValue(false);
         Logger.info("Game set up");
     }
 
@@ -80,6 +86,16 @@ public class LabyrinthState implements puzzle.State<Direction> {
         }
         Logger.debug("Wall set up between " + position1 + " and " + position2);
     }
+    private void movePlayer(Direction direction){
+        int currentRow = player.getCurrentPosition().getRow();
+        int currentCol = player.getCurrentPosition().getCol();
+        if (labyrinthCells[currentRow - 1][currentCol - 1].canGoDirection(direction)) {
+            Position position = player.getCurrentPosition();
+            position.setRow(currentRow + direction.getRowChange());
+            position.setCol(currentCol + direction.getColChange());
+            makeMove(direction);
+        }
+    }
 
     /**
      * {@return the labyrinth cell in the specified position}
@@ -90,6 +106,10 @@ public class LabyrinthState implements puzzle.State<Direction> {
         var row = position.getRow() - 1;
         var col = position.getCol() - 1;
         return labyrinthCells[row][col];
+    }
+
+    public void setPlayerWonProperty(boolean playerWon) {
+        this.playerWonProperty.setValue(playerWon);
     }
 
     /**
@@ -121,19 +141,8 @@ public class LabyrinthState implements puzzle.State<Direction> {
      */
     @Override
     public void makeMove(Direction direction) {
-        if (isSolved()) {
-            Logger.info("Already solved");
-            return;
-        }
-        int currentRow = player.getCurrentPosition().getRow();
-        int currentCol = player.getCurrentPosition().getCol();
-        if (labyrinthCells[currentRow - 1][currentCol - 1].canGoDirection(direction)) {
-            Position position = player.getCurrentPosition();
-            position.setRow(currentRow + direction.getRowChange());
-            position.setCol(currentCol + direction.getColChange());
-            makeMove(direction);
-        }
-        Logger.info("Player moved to the " + direction);
+        movePlayer(direction);
+        Logger.info("Player moved to the " + direction + " in the state.");
     }
 
     /**
