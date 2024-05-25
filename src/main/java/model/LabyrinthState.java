@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import lombok.Getter;
 import org.tinylog.Logger;
 import puzzle.State;
-import utils.LabyrinthSetUp;
+import utils.setup.LabyrinthSetUp;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -133,9 +133,7 @@ public class LabyrinthState implements puzzle.State<Direction> {
             position.setCol(currentCol + direction.getColChange());
             makeMove(direction);
         }
-        Logger.info("Player moved to the " + direction +
-                ".\t Old position: " + Position.of(currentRow, currentCol) +
-                "\t New position: " + player.getCurrentPosition());
+        Logger.info("Player moved to the " + direction);
     }
 
     /**

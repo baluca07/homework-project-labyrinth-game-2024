@@ -3,6 +3,7 @@ package utils;
 import com.google.gson.Gson;
 import model.Position;
 import org.junit.jupiter.api.Test;
+import utils.setup.LabyrinthSetUp;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

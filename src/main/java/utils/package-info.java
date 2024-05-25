@@ -1,4 +1,4 @@
 /**
- * Includes the class needed to set up the game.
+ * Utils to help implement the Labyrinth game.
  */
 package utils;
