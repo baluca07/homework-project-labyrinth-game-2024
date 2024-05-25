@@ -19,6 +19,10 @@ import java.util.stream.Collectors;
 public class GsonScoreManager implements ScoreManager {
     private Gson gson;
     private ScoreTable playersScores;
+
+    /**
+     * Create {@link ScoreManager} using {@code gson} and an instance of the {@link  ScoreTable} class.
+     */
     public GsonScoreManager() {
         gson = new Gson();
         playersScores = new ScoreTable();
