@@ -49,20 +49,24 @@ public class LabyrinthState implements puzzle.State<Direction> {
                 getResourceAsStream("/setup.json"))))
                 .lines().collect(Collectors.joining());
         LabyrinthSetUp setup = gson.fromJson(json, LabyrinthSetUp.class);
+        Logger.info("setup.json read into an instance of the the SetUpLabyrinth class");
         setUpPlayer(setup.getPlayerStartPosition());
         setUpTarget(setup.getTargetPosition());
         for (var positions : setup.getWallsBetweenPositions()) {
             setWallBetween(positions[0], positions[1]);
         }
+        Logger.info("Game set up");
     }
 
     private void setUpPlayer(Position position) { //1 - LABYRINTH_SIZE
         player = new Player(position);
+        Logger.debug("Player set up:" + position);
     }
 
     private void setUpTarget(Position position) {
         Target.getPosition().setRow(position.getRow());
         Target.getPosition().setCol(position.getCol());
+        Logger.debug("Target set up:" + Target.getPosition());
     }
 
     private void setWallBetween(Position position1, Position position2) {
@@ -74,6 +78,7 @@ public class LabyrinthState implements puzzle.State<Direction> {
             labyrinthCells[position1.getRow() - 1][position1.getCol() - 1].removeDirection(position1.getRow() < position2.getRow() ? Direction.SOUTH : Direction.NORTH);
             labyrinthCells[position2.getRow() - 1][position2.getCol() - 1].removeDirection(position1.getRow() > position2.getRow() ? Direction.SOUTH : Direction.NORTH);
         }
+        Logger.debug("Wall set up between " + position1 + " and " + position2);
     }
 
     /**
@@ -117,7 +122,7 @@ public class LabyrinthState implements puzzle.State<Direction> {
     @Override
     public void makeMove(Direction direction) {
         if (isSolved()) {
-            Logger.info("Solved.");
+            Logger.info("Already solved");
             return;
         }
         int currentRow = player.getCurrentPosition().getRow();
@@ -128,6 +133,9 @@ public class LabyrinthState implements puzzle.State<Direction> {
             position.setCol(currentCol + direction.getColChange());
             makeMove(direction);
         }
+        Logger.info("Player moved to the " + direction +
+                ".\t Old position: " + Position.of(currentRow, currentCol) +
+                "\t New position: " + player.getCurrentPosition());
     }
 
     /**
