@@ -56,6 +56,7 @@ public class LabyrinthController {
         state.getPlayerWonProperty().addListener((o)->{
             if(state.getPlayerWonProperty().getValue()){
                 setPlayerCircle();
+                showPlayerWon();
                 resetGame(true);
             }
         });
@@ -225,4 +226,12 @@ public class LabyrinthController {
         resetGame(false);
     }
 
+    private void showPlayerWon(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Labyrinth Game");
+        alert.setHeaderText("Congratulations!");
+        alert.setContentText("You won!");
+        alert.getDialogPane().setGraphic(null);
+        alert.showAndWait();
+    }
 }
