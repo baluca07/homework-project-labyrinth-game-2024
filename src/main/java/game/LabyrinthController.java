@@ -9,7 +9,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import model.LabyrinthState;
-import model.Player;
 import model.Position;
 import model.Target;
 import org.tinylog.Logger;
@@ -30,6 +29,8 @@ public class LabyrinthController {
     @FXML
     public void initialize() {
         initializeGrid();
+        setOuterWalls();
+        setWalls();
         initializePlayer();
         setPlayerCircle();
         setTargetText();
@@ -55,6 +56,34 @@ public class LabyrinthController {
         labyrinth.getStyleClass().add("basicBorder");
         Logger.info("Initialized grid");
     }
+    public void setWalls() {
+        for (int i = 0; i < LABYRINTH_SIZE; i++) {
+            for (int j = 0; j < LABYRINTH_SIZE; j++) {
+                var labyrinthCell = state.getLabyrinthCellAtPosition(Position.of(i+1,j+1));
+                var stackPane = nodes[i][j];
+                stackPane.getStyleClass().addAll("topBorder", "rightBorder", "bottomBorder", "leftBorder");
+                for(var direction : labyrinthCell.getDirectionCanGo()){
+                    switch (direction){
+                        case NORTH ->  stackPane.getStyleClass().remove("topBorder");
+                        case EAST -> stackPane.getStyleClass().remove("rightBorder");
+                        case SOUTH -> stackPane.getStyleClass().remove("bottomBorder");
+                        case WEST -> stackPane.getStyleClass().remove("leftBorder");
+                    }
+                }
+            }
+        }
+        Logger.info("Walls set up on GUI");
+    }
+    @FXML
+    public void setOuterWalls() {
+        for (int i = 0; i < LABYRINTH_SIZE; i++) {
+            nodes[0][i].getStyleClass().add("topBorder");
+            nodes[i][0].getStyleClass().add("leftBorder");
+            nodes[LABYRINTH_SIZE - 1][i].getStyleClass().add("bottomBorder");
+            nodes[i][LABYRINTH_SIZE - 1].getStyleClass().add("rightBorder");
+        }
+        Logger.info("Outer walls set up on GUI");
+    }
     private void initializePlayer(){
         playerCircle = new Circle(16, Color.BLUEVIOLET);
         playerCircle.setStroke(Color.BLACK);
@@ -66,9 +95,8 @@ public class LabyrinthController {
         Position currentPosition = state.getPlayer().getCurrentPosition();
         GridPane.setRowIndex(playerCircle, currentPosition.getRow() - 1);
         GridPane.setColumnIndex(playerCircle, currentPosition.getCol() - 1);
-        Logger.info("Player position set on GUI.");
+        Logger.info("Player position set on GUI");
     }
-
     @FXML
     public void setTargetText() {
         targetText = new Text("CÉL");
@@ -77,4 +105,5 @@ public class LabyrinthController {
         GridPane.setHalignment(targetText, Pos.CENTER.getHpos());
         Logger.info("Target text set on GUI");
     }
+
 }

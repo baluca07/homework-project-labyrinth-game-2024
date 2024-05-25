@@ -1,10 +1,101 @@
-.basicBorder{
+.basicBorder {
     -fx-border-style: solid;
     -fx-border-width: 1 1 1 1;
     -fx-border-color: black;
 }
-.targetText{
+
+.targetText {
     -fx-font-family: "Times New Roman", Times, serif;
     -fx-font-size: 16;
     -fx-font-weight: bold;
+}
+
+.topBorder {
+    -fx-border-style: solid;
+    -fx-border-width: 2 1 1 1;
+    -fx-border-color: black;
+}
+
+.bottomBorder {
+    -fx-border-style: solid;
+    -fx-border-width: 1 1 2 1;
+    -fx-border-color: black;
+}
+
+.rightBorder {
+    -fx-border-style: solid;
+    -fx-border-width: 1 2 1 1;
+    -fx-border-color: black;
+}
+
+.leftBorder {
+    -fx-border-style: solid;
+    -fx-border-width: 1 1 1 2;
+    -fx-border-color: black;
+}
+
+.topBorder.bottomBorder {
+    -fx-border-style: solid;
+    -fx-border-width: 2 1 2 1;
+    -fx-border-color: black;
+}
+
+.topBorder.rightBorder {
+    -fx-border-style: solid;
+    -fx-border-width: 2 2 1 1;
+    -fx-border-color: black;
+}
+
+.topBorder.leftBorder {
+    -fx-border-style: solid;
+    -fx-border-width: 2 1 1 2;
+    -fx-border-color: black;
+}
+
+.bottomBorder.rightBorder {
+    -fx-border-style: solid;
+    -fx-border-width: 1 2 2 1;
+    -fx-border-color: black;
+}
+
+.bottomBorder.leftBorder {
+    -fx-border-style: solid;
+    -fx-border-width: 1 1 2 2;
+    -fx-border-color: black;
+}
+
+.rightBorder.leftBorder {
+    -fx-border-style: solid;
+    -fx-border-width: 1 2 1 2;
+    -fx-border-color: black;
+}
+
+.topBorder.bottomBorder.rightBorder {
+    -fx-border-style: solid;
+    -fx-border-width: 2 2 2 1;
+    -fx-border-color: black;
+}
+
+.topBorder.bottomBorder.leftBorder {
+    -fx-border-style: solid;
+    -fx-border-width: 2 1 2 2;
+    -fx-border-color: black;
+}
+
+.topBorder.rightBorder.leftBorder {
+    -fx-border-style: solid;
+    -fx-border-width: 2 2 1 2;
+    -fx-border-color: black;
+}
+
+.bottomBorder.rightBorder.leftBorder {
+    -fx-border-style: solid;
+    -fx-border-width: 1 2 2 2;
+    -fx-border-color: black;
+}
+
+.topBorder.bottomBorder.rightBorder.leftBorder {
+    -fx-border-style: solid;
+    -fx-border-width: 2 2 2 2;
+    -fx-border-color: black;
 }
