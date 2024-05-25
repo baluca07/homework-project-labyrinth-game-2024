@@ -3,3 +3,8 @@
     -fx-border-width: 1 1 1 1;
     -fx-border-color: black;
 }
+.targetText{
+    -fx-font-family: "Times New Roman", Times, serif;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
